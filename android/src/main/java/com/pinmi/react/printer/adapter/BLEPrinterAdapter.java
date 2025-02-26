@@ -320,9 +320,10 @@ public class BLEPrinterAdapter implements PrinterAdapter{
             printerOutputStream.write(LINE_FEED);
 
             printerOutputStream.flush();
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e(LOG_TAG, "failed to print data");
             e.printStackTrace();
+            errorCallback.invoke("Bluetooth connection is not built, may be you forgot to connectPrinter");
         }
     }
 }
