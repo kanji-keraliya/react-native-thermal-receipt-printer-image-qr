@@ -44,6 +44,7 @@ declare const USBPrinter: {
   connectPrinter: (vendorId: string, productId: string) => Promise<IUSBPrinter>;
   closeConn: () => Promise<void>;
   printText: (text: string, opts?: PrinterOptions) => void;
+  printTextAsync: (text: string, opts?: PrinterOptions) => Promise<void>;
   printBill: (text: string, opts?: PrinterOptions) => void;
   /**
    * image url
@@ -57,6 +58,16 @@ declare const USBPrinter: {
    * @param opts
    */
   printImageBase64: (Base64: string, opts?: PrinterImageOptions) => void;
+
+  /**
+   * base 64 string
+   * @param Base64
+   * @param opts
+   */
+  printImageBase64Async: (
+    Base64: string,
+    opts?: PrinterImageOptions
+  ) => Promise<void>;
   /**
    * android print with encoder
    * @param text

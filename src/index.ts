@@ -272,6 +272,41 @@ const BLEPrinter = {
     }
   },
 
+  printTextAsync: (text: string, opts: PrinterOptions = {}): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        if (Platform.OS === "ios") {
+          const processedText = textPreprocessingIOS(text, false, false);
+          RNBLEPrinter.printRawData(
+            processedText.text,
+            processedText.opts,
+            (error: Error) => {
+              if (error) {
+                // console.warn(error);
+                reject(error);
+              } else {
+                resolve();
+              }
+            }
+          );
+        } else {
+          RNBLEPrinter.printRawData(
+            textTo64Buffer(text, opts),
+            (error: Error) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve();
+              }
+            }
+          );
+        }
+      } catch (exception) {
+        reject(exception);
+      }
+    });
+  },
+
   printBill: (text: string, opts: PrinterOptions = {}): void => {
     if (Platform.OS === "ios") {
       const processedText = textPreprocessingIOS(
@@ -336,6 +371,46 @@ const BLEPrinter = {
         (error: Error) => console.warn(error)
       );
     }
+  },
+
+  printImageBase64Async: (
+    Base64: string,
+    opts: PrinterImageOptions = {}
+  ): Promise<void> => {
+    return new Promise((resolve, reject) => {
+      try {
+        if (Platform.OS === "ios") {
+          /**
+           * just development
+           */
+          RNBLEPrinter.printImageBase64(Base64, opts, (error: Error) => {
+            if (error) {
+              reject(error);
+            } else {
+              resolve();
+            }
+          });
+        } else {
+          /**
+           * just development
+           */
+          RNBLEPrinter.printImageBase64(
+            Base64,
+            opts?.imageWidth ?? 0,
+            opts?.imageHeight ?? 0,
+            (error: Error) => {
+              if (error) {
+                reject(error);
+              } else {
+                resolve();
+              }
+            }
+          );
+        }
+      } catch (exception) {
+        reject(exception);
+      }
+    });
   },
   /**
    * android print with encoder
