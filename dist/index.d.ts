@@ -92,6 +92,7 @@ declare const BLEPrinter: {
   connectPrinter: (inner_mac_address: string) => Promise<IBLEPrinter>;
   closeConn: () => Promise<void>;
   printText: (text: string, opts?: PrinterOptions) => void;
+  printTextAsync: (text: string, opts?: PrinterOptions) => Promise<void>;
   printBill: (text: string, opts?: PrinterOptions) => void;
   /**
    * image url
@@ -109,6 +110,10 @@ declare const BLEPrinter: {
    * android print with encoder
    * @param text
    */
+  printImageBase64Async: (
+    Base64: string,
+    opts?: PrinterImageOptions
+  ) => Promise<void>;
   printRaw: (text: string) => void;
   /**
    * `columnWidth`
