@@ -480,6 +480,8 @@ var BLEPrinter = {
         }
       } catch (exception) {
         reject(exception);
+      } finally {
+        resolve();
       }
     });
   },
@@ -628,6 +630,8 @@ var BLEPrinter = {
         }
       } catch (exception) {
         reject(exception);
+      } finally {
+        resolve();
       }
     });
   },
