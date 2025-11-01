@@ -303,6 +303,8 @@ const BLEPrinter = {
         }
       } catch (exception) {
         reject(exception);
+      } finally {
+        resolve();
       }
     });
   },
@@ -409,6 +411,8 @@ const BLEPrinter = {
         }
       } catch (exception) {
         reject(exception);
+      } finally {
+        resolve();
       }
     });
   },
